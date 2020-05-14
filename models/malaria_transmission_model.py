@@ -3,7 +3,11 @@ import torch
 
 class Malaria_Transmission_Model(object):
 
-    """Docstring for Malaria_Transmission_Model. """
+    """
+    Docs for Malaria_Transmission_Model.
+
+    references: TODO add references later.
+    """
 
     def __init__(self):
         """
@@ -34,23 +38,51 @@ class Malaria_Transmission_Model(object):
             1 - pp  -   probability of P -> A
         """
         # states
-        S = 0
-        T = 0
-        D = 0
-        A = 0
-        U = 0
-        P = 0
+        self.S = 0
+        self.T = 0
+        self.D = 0
+        self.A = 0
+        self.U = 0
+        self.P = 0
         # model parameters
-        lamb = 0
-        fai = 0
-        ft = 0
-        dt = 0
-        dd = 0
-        da = 0
-        dp = 0
-        du = 0
+        self.lamb = 0
+        self.fai = 0
+        self.ft = 0
+        self.dt = 0
+        self.dd = 0
+        self.da = 0
+        self.dp = 0
+        self.du = 0
+        # probalilities
+        self.ps = 0
+        self.pt = 0
+        self.pd = 0
+        self.pa = 0
+        self.pu = 0
+        self.pp = 0
 
     def forward(self):
+        S = self.S
+        T = self.T
+        D = self.D
+        A = self.A
+        U = self.U
+        P = self.P
+        lamb = self.lamb
+        fai = self.fai
+        ft = self.ft
+        dt = self.dt
+        dd = self.dd
+        da = self.da
+        dp = self.dp
+        du = self.du
+        ps = self.ps
+        pt = self.pt
+        pd = self.pd
+        pa = self.pa
+        pu = self.pu
+        pp = self.pp
+
         dsdt = ps * (-lamb * S + P / dp + U / du)
         dsda = (1 - ps) * (-lamb * S + P / dp + U / du)
         dtdt = pt * fai * ft * lamb * (S + A + U) - T / dt
