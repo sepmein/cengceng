@@ -15,6 +15,18 @@ These types of models seperate each individual into **states**.
 - seir-caq
 - mosquito resistance prediction
 
+#### Malaria Transmission Model
+
+##### States
+At each point in time people can be in one of six states:
+- *S* for susceptible
+- *T* - treated clinical disease
+- *D* - untreated clinical disease
+- *A* - asymptomatic infection(which maybe detected by microscopy)
+- *U* - sub-patent infection
+- *P* - protected by a period of prophylaxis from prior treatment
+
+
 ## Methods
 times series model
 
