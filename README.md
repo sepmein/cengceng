@@ -6,7 +6,7 @@ A Gallery of infectious disease models for the quick usage in the infectious dis
 ## quick start
 This project use `pytorch` as the backend mathmatical framework, a pre-installed GPU version of pytorch is recommended.
 ```bash
-pip install infectious_disease_model
+pip install cengceng
 ```
 
 ## How to use
