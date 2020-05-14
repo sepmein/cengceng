@@ -13,7 +13,12 @@ class Malaria_Transmission_Model(object):
         """
         Model init:
         - STATS vars
-            susceptible ( S ), treated clinical disease ( T ), untreated clinical disease ( D ), asymptomatic infection which may be detected by microscopy ( A ), sub-patent infection (U ) and protected by a period of prophylaxis from prior treatment ( P ).
+            S - susceptible
+            T - treated clinical disease
+            D - untreated clinical disease
+            A - asymptomatic infection which may be detected by microscopy
+            U - sub-patent infection
+            P - protected by a period of prophylaxis from prior treatment
         - Model parameters
             lamb    -   force of the infection
             fai     -   probability of clinical disease upon infection
@@ -95,3 +100,20 @@ class Malaria_Transmission_Model(object):
         duda = (1 - pu) * A / da - U / du - lamb * U
         dpdt = dp * T / dt - P / dp
         dpda = (1 - dp) * T / dt - P / dp
+        return torch.cat(
+            (
+                dsdt,
+                dsda,
+                dtdt,
+                dtda,
+                dddt,
+                ddda,
+                dadt,
+                dada,
+                dudt,
+                dudt,
+                duda,
+                dpdt,
+                dpda,
+            )
+        )
