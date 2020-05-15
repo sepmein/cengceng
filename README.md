@@ -11,6 +11,18 @@ pip install cengceng
 
 ## How to use
 
+```python
+from cengceng.compartmental import SIR
+
+model = SIR()
+
+# load data from csv file
+model.load_data('./covid-19-cn.csv')
+model.fit()
+model.save('output/result.csv')
+```
+That's it.
+
 ## Models:
 
 ### Compartment Models
