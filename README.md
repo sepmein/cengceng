@@ -25,13 +25,29 @@ That's it.
 
 ## Models:
 
-### Compartment Models
-These types of models seperate each individual into **states**.
+### Compartmental Models
+These types of models seperate each individual into **states**. And the speed of one state to another was predefined. In `cengceng`, we define the state change function in the `forward()` function of model class. Models included:
+- SIR
+- SEIR
 - mosquito resistance prediction
 
-#### Traditional Infectious Disease Models
-- sir
-- seir
+For instance, in the simplest **SIR** model:
+```python
+class SIR(Model):
+		# defined in the forward function
+    def forward(self, s0, i0, r0):
+        si = s0
+        ii = i0
+        ri = r0
+        dsdt = -self.beta * si * ii
+        didt = self.beta * si * ii - self.gama * ii
+        drdt = self.gama * ii
+        return torch.cat((dsdt, didt, drdt))
+```
+
+### Definitive Models
+Models with definitive function
+
 - logistic
 
 #### Modified Infectious Disease Models
@@ -50,10 +66,14 @@ At each point people can be in one of six states:
 
 ## Development
 **Skip this part if you are not intended to contribute to the project**
+
 **But it will be helpful, if you understand the interior mechanism of how this projcet works**
+
 ### Compartmental Model's Implementations
 This project use `pytorch` as a major mathmatical framework to calculus and differentiation. The parameters are all basically a torch variable.
 Because models including `sir`, `seir` and other compartmental models can't directedly calculate the original function, the project use `torchdiffeq` to calculate the ode function.
+
+
 
 ### RNN Models
 Recurrent Neural Network(RNN) is a class of recurrent neural network (RNN) is a class of artificial neural network where connections between nodes form a directed graph along a temporal sequence. This allows it to exhibit temporal dynamic behavior. Unlike feedforward neural networks, RNNs can use their internal state (memory) to process sequences of inputs. This makes them applicable to tasks such as unsegmented, connected handwriting recognition or speech recognition.
