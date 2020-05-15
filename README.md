@@ -11,6 +11,7 @@ pip install cengceng
 
 ## How to use
 
+1. use project predefined model
 ```python
 from cengceng.compartmental import SIR
 
@@ -23,6 +24,13 @@ model.save('output/result.csv')
 ```
 That's it.
 
+2. use your owm model
+
+```python
+from cengceng.models import model
+
+TODO
+```
 ## Models:
 
 ### Compartmental Models
