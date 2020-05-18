@@ -2,6 +2,7 @@
 The model library
 """
 import torch
+import numpy as np
 
 
 class Model(object):
@@ -10,13 +11,24 @@ class Model(object):
     Docstring for Model. The basic model.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """init the model with preferences"""
         # Use Adam as the default optimizer
         self.optimizer = torch.optim.Adam
 
-    def fit(self, optimizer=torch.optim.Adam, learning_rate=0.001):
+    def fit(self, optimizer=torch.optim.Adam, learning_rate=0.001) -> None:
         pass
+
+    def load(self, data) -> None:
+        if isinstance(data, np.ndarray):
+            self.data = data
+        else:
+            raise Exception(
+                "The Model is Loading data, please use numpy array as the datatype"
+            )
+
+    def add_trainable_parameter(self, name: str, parameter: int) -> None:
+        setattr(self, name, torch.tensor(parameter, requires_grad=True))
 
 
 class Compartmental(Model):
@@ -40,10 +52,10 @@ class Sir(Model):
     - gama
     """
 
-    def __init__(self, beta, gama):
+    def __init__(self, beta=5e-1, gama=4e-1):
         super().__init__()
-        self.beta = beta
-        self.gama = gama
+        self.add_trainable_parameter("beta", beta)
+        self.add_trainable_parameter("gama", gama)
         self.r_o = self.beta / self.gama
 
     def forward(self, t, y):
@@ -54,6 +66,9 @@ class Sir(Model):
         didt = self.beta * si * ii - self.gama * ii
         drdt = self.gama * ii
         return torch.cat((dsdt, didt, drdt))
+
+    def fit(self, y: np.ndarray) -> None:
+        pass
 
 
 class Seir(Sir):
