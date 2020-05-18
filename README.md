@@ -77,6 +77,18 @@ At each point people can be in one of six states:
 
 **But it will be helpful, if you understand the interior mechanism of how this projcet works**
 
+### Create Your Own Model
+
+1. Compartmental Model
+Inherite from Compartmental Class, use`add_trainable_parameter` function to add trainable parameters.
+
+```pytorch
+class My_Compartmental_Model(Compartmental):
+		def __init__(self, para1=1e-5):
+				super().__init__()
+				self.add_trainable_parameter('para1', para1)
+```
+
 ### Compartmental Model's Implementations
 This project use `pytorch` as a major mathmatical framework to calculus and differentiation. The parameters are all basically a torch variable.
 Because models including `sir`, `seir` and other compartmental models can't directedly calculate the original function, the project use `torchdiffeq` to calculate the ode function.
