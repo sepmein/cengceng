@@ -3,19 +3,22 @@ Python implementation of common infectious disease transmission models.
 
 A Gallery of infectious disease models for the quick usage in the infectious disease control and prevention.
 
+> Cengceng is a name of a cat my son loves.
+
 ## quick start
+### 1. Installation
 This project use `pytorch` as the backend mathmatical framework, a pre-installed GPU version of pytorch is recommended.
 ```bash
 pip install cengceng
 ```
 
-## How to use
+### 2. Usage
 
-1. use project predefined model
+1. Project predefined model
 ```python
-from cengceng.compartmental import SIR
+from cengceng.compartmental import Sir
 
-model = SIR()
+model = Sir()
 
 # load data from csv file
 model.load_data('./covid-19-cn.csv')
@@ -24,13 +27,17 @@ model.save('output/result.csv')
 ```
 That's it.
 
-2. use your owm model
+2. Customize your own model
 
 ```python
-from cengceng.models import model
+from cengceng.models import Model
 
-TODO
+# Inherit from basic model class
+class My_Own_Model(Model):
+		def __init__(self):
+				super().__init__()
 ```
+
 ## Models:
 
 ### Compartmental Models
