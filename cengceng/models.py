@@ -15,6 +15,7 @@ class Model(object):
         """init the model with preferences"""
         # Use Adam as the default optimizer
         self.optimizer = torch.optim.Adam
+        self.parameters = {}
 
     def fit(self, optimizer=torch.optim.Adam, learning_rate=0.001) -> None:
         pass
@@ -27,8 +28,12 @@ class Model(object):
                 "The Model is Loading data, please use numpy array as the datatype"
             )
 
-    def add_trainable_parameter(self, name: str, parameter: int) -> None:
-        setattr(self, name, torch.tensor(parameter, requires_grad=True))
+    def add_trainable_parameter(self, name: str, parameter: int) -> Model:
+        self.parameters[name] = torch.tensor(parameter, requires_grad=True)
+        return self
+
+    def save(self, file_name: str, path: str) -> None:
+        pass
 
 
 class Compartmental(Model):
@@ -41,6 +46,28 @@ class Compartmental(Model):
 
     def forward(self):
         pass
+
+    def fit(self, y: np.ndarray, learning_rate: int = 1e-3, training_steps: int = 1e5):
+        """
+
+        """
+        # get t length of the real data
+        t_length = y.shape[0]
+        t = torch.arange(1.0, tlength)
+
+        # construct parameters list object
+        trainable_parameters = []
+        for name, para in self.parameters:
+            trainable_parameters.append(para)
+
+        optimizer = self.optimizer(trainable_parameters, lr=learning_rate)
+
+        for iteration in range(1, training_steps):
+            optimizer.zero_grad()
+            yhat = odeint(self.forward, y[0], t)
+            loss = torch.sum(torch.abs(yhat - y))
+            loss.backward()
+            optimizer.step()
 
 
 class Sir(Model):
