@@ -16,6 +16,8 @@ def test_sir_model_is_the_instance_of_model_class():
 def test_sir_model():
     model = Sir()
     assert isinstance(model.beta, torch.Tensor)
+    beta_value = model.beta.detach().numpy()
+    assert beta_value == model.beta
 
 
 if __name__ == "__main__":
