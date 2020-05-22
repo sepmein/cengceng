@@ -14,10 +14,10 @@ def test_sir_model_is_the_instance_of_model_class():
 
 
 def test_sir_model():
-    model = Sir()
-    assert isinstance(model.beta, torch.Tensor)
-    beta_value = model.beta.detach().numpy()
-    assert beta_value == model.beta
+    model = Sir(beta=1e3, gama=1e2)
+    assert isinstance(model.parameters["beta"], torch.Tensor)
+    beta_value = model.parameters["beta"].detach().numpy()
+    assert beta_value == 1e3
 
 
 if __name__ == "__main__":
