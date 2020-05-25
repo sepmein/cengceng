@@ -19,6 +19,10 @@ def test_sir_model():
     beta_value = model.parameters["beta"].detach().numpy()
     assert beta_value == 1e3
 
+def load_data():
+    model = Sir(beta=1e3, gama=1e2)
+    model.load()
+
 
 if __name__ == "__main__":
     test_model_construction()
